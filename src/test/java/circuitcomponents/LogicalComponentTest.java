@@ -1,6 +1,7 @@
 package circuitcomponents;
 
 import exceptions.MissingInputException;
+import exceptions.NoZeroDelayException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.mock;
 public class LogicalComponentTest {
 
     private LogicalComponent logicalComponentDefault1;
+    private LogicalComponent logicalComponentDelayZero;
     private Component logicalInput1;
     private Component logicalInput2;
 
@@ -46,8 +48,26 @@ public class LogicalComponentTest {
         logicalComponentDefault1.getInputs().forEach(component -> assertTrue(component instanceof LogicalInput));
     }
 
+    @Test(expected = NoZeroDelayException.class)
+    public void calculateToggleTimeZero() {
+        logicalComponentDelayZero = new ImplLogicalComponent(0);
+
+        assertThrows(NoZeroDelayException.class, () -> logicalComponentDelayZero = new ImplLogicalComponent(0));
+    }
+
+    @Test
+    public void calculateDefaultToggleTime() {
+        assertEquals(logicalComponentDefault1.calculateToggleTime(), 1);
+    }
 
     class ImplLogicalComponent extends LogicalComponent {
+        ImplLogicalComponent() {
+            super();
+        }
+
+        ImplLogicalComponent(int delay) {
+            super(delay);
+        }
 
         @Override
         public void calculateState() throws MissingInputException {
