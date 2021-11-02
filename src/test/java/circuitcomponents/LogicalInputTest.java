@@ -9,13 +9,12 @@ import static org.mockito.Mockito.mock;
 
 public class LogicalInputTest {
 
-
     private LogicalInput logicalInput1;
     private Component logicalInput2;
 
     @Before
     public void setUp() {
-        logicalInput1 = new LogicalInput();
+        logicalInput1 = new LogicalInput(1);
         logicalInput2 = mock(LogicalInput.class);
     }
 
