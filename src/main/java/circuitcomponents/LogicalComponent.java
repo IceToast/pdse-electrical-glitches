@@ -4,6 +4,7 @@ import exceptions.MissingInputException;
 import exceptions.NoZeroDelayException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class LogicalComponent implements Component {
@@ -21,6 +22,10 @@ public abstract class LogicalComponent implements Component {
     }
 
     public void addInput(Component... component) {
+        if(component.length <= 0)
+            throw new MissingInputException("No Input to add");
+
+        Collections.addAll(this.inputs, component);
     }
 
     public void calculateState() throws MissingInputException {
