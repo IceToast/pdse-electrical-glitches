@@ -28,8 +28,7 @@ public abstract class LogicalComponent implements Component {
         Collections.addAll(this.inputs, component);
     }
 
-    public void calculateState() throws MissingInputException {
-    }
+    public abstract void calculateState() throws MissingInputException;
 
 
     public int calculateToggleTime() {
