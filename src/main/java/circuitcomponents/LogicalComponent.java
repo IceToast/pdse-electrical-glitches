@@ -38,7 +38,7 @@ public abstract class LogicalComponent implements Component {
             maxTreeSize = Math.max(maxTreeSize, input.calculateToggleTime());
         }
 
-        return maxTreeSize;
+        return maxTreeSize + delay;
     }
 
     public List<Component> getInputs() {
