@@ -22,7 +22,7 @@ public abstract class LogicalComponent implements Component {
     }
 
     public void addInput(Component... component) {
-        if(component.length <= 0)
+        if (component.length <= 0)
             throw new MissingInputException("No Input to add");
 
         Collections.addAll(this.inputs, component);
@@ -32,7 +32,13 @@ public abstract class LogicalComponent implements Component {
 
 
     public int calculateToggleTime() {
-        return 0;
+        List<Component> inputs = getInputs();
+        int maxTreeSize = 0;
+        for (Component input : inputs) {
+            maxTreeSize = Math.max(maxTreeSize, input.calculateToggleTime());
+        }
+
+        return maxTreeSize;
     }
 
     public List<Component> getInputs() {
