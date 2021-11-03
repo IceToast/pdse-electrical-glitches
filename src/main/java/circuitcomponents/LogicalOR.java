@@ -15,5 +15,6 @@ public class LogicalOR extends LogicalComponent{
             result = result || input.getState();
         }
         setState(result);
+        callCalculateOnChildren();
     }
 }
