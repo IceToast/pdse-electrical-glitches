@@ -2,6 +2,7 @@ package circuitcomponents;
 
 import exceptions.MissingInputException;
 import exceptions.NoZeroDelayException;
+import exceptions.TooManyInputsException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,9 @@ public class LogicalComponentTest {
     private LogicalComponent logicalComponentDelayZero;
     private Component logicalInput1;
     private Component logicalInput2;
+    private Component logicalInput3;
+    private Component logicalInput4;
+    private Component logicalInput5;
 
     @Before
     public void setUp() {
@@ -24,12 +28,22 @@ public class LogicalComponentTest {
 
         logicalInput1 = mock(LogicalInput.class);
         logicalInput2 = mock(LogicalInput.class);
+        logicalInput3 = mock(LogicalInput.class);
+        logicalInput4 = mock(LogicalInput.class);
+        logicalInput5 = mock(LogicalInput.class);
     }
 
 
     @Test(expected = MissingInputException.class)
     public void addInputWithoutArgument() {
         logicalComponentDefault1.addInput();
+
+        assertThrows(MissingInputException.class, () -> logicalComponentDefault1.addInput());
+    }
+
+    @Test(expected = TooManyInputsException.class)
+    public void addMoreThanFourInputs(){
+        logicalComponentDefault1.addInput(logicalInput1, logicalInput2, logicalInput3, logicalInput4, logicalInput5);
 
         assertThrows(MissingInputException.class, () -> logicalComponentDefault1.addInput());
     }
