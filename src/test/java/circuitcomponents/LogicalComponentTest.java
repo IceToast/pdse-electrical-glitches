@@ -12,6 +12,7 @@ import static org.mockito.Mockito.mock;
 public class LogicalComponentTest {
 
     private LogicalComponent logicalComponentDefault1;
+    private LogicalComponent logicalComponentDefault2;
     private LogicalComponent logicalComponentDelayZero;
     private Component logicalInput1;
     private Component logicalInput2;
@@ -19,6 +20,8 @@ public class LogicalComponentTest {
     @Before
     public void setUp() {
         logicalComponentDefault1 = new ImplLogicalComponent();
+        logicalComponentDefault2 = new ImplLogicalComponent();
+
         logicalInput1 = mock(LogicalInput.class);
         logicalInput2 = mock(LogicalInput.class);
     }
@@ -58,6 +61,14 @@ public class LogicalComponentTest {
     @Test
     public void calculateDefaultToggleTime() {
         assertEquals(logicalComponentDefault1.calculateToggleTime(), 1);
+    }
+
+    @Test
+    public void calculateToggleTimeWithInputsInDifferentPathLength() {
+        logicalComponentDefault2.addInput(logicalInput1, logicalInput2);
+        logicalComponentDefault1.addInput(logicalInput2, logicalComponentDefault2);
+
+        assertEquals(2, logicalComponentDefault1.calculateToggleTime());
     }
 
     class ImplLogicalComponent extends LogicalComponent {
