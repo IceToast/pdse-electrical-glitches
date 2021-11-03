@@ -41,6 +41,12 @@ public abstract class LogicalComponent implements Component {
         return maxTreeSize + delay;
     }
 
+    public void callCalculateOnChildren(){
+        for(Component input: inputs){
+            input.calculateState();
+        }
+    }
+
     public List<Component> getInputs() {
         return inputs;
     }
