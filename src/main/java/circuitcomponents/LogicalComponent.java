@@ -2,6 +2,7 @@ package circuitcomponents;
 
 import exceptions.MissingInputException;
 import exceptions.NoZeroDelayException;
+import exceptions.TooManyInputsException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,8 @@ public abstract class LogicalComponent implements Component {
     public void addInput(Component... component) {
         if (component.length <= 0)
             throw new MissingInputException("No Input to add");
-
+        if(this.inputs.size() + component.length > 4)
+            throw new TooManyInputsException("LogicalComponents only allow up to 4 inputs, cascade the component if you need more.");
         Collections.addAll(this.inputs, component);
     }
 
