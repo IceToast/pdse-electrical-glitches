@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 
 public class LogicalComponentTest {
@@ -83,6 +84,15 @@ public class LogicalComponentTest {
         logicalComponentDefault1.addInput(logicalInput2, logicalComponentDefault2);
 
         assertEquals(2, logicalComponentDefault1.calculateToggleTime());
+    }
+
+    @Test
+    public void callCalculateOnChildren() {
+        logicalComponentDefault1.addInput(logicalInput3);
+
+        logicalComponentDefault1.callCalculateOnChildren();
+
+        verify(logicalInput3).calculateState();
     }
 
     class ImplLogicalComponent extends LogicalComponent {
