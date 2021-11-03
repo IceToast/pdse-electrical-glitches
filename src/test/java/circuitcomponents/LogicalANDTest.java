@@ -35,4 +35,14 @@ public class LogicalANDTest {
 
         assertFalse(logicalAND.getState());
     }
+
+    @Test
+    public void calculateStateWithOneInputT() {
+        when(logicalInput1.getState()).thenReturn(true);
+        logicalAND.addInput(logicalInput1);
+
+        logicalAND.calculateState();
+
+        assertTrue(logicalAND.getState());
+    }
 }
