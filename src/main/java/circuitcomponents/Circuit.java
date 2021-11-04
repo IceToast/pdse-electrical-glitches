@@ -12,4 +12,12 @@ public class Circuit {
     private List<LogicalInput> inputs;
     private Component topComponent;
     private boolean state;
+
+    public Circuit(Component topComponent) {
+        this.topComponent = topComponent;
+    }
+
+    public int calculateMaxToggleTime() {
+        return 0;
+    }
 }
