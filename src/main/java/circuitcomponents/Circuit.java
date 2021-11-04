@@ -20,4 +20,12 @@ public class Circuit {
     public int calculateMaxToggleTime() {
         return 0;
     }
+
+    public List<LogicalInput> getInputs() {
+        return this.inputs;
+    }
+
+    public boolean getState() {
+        return this.state;
+    }
 }

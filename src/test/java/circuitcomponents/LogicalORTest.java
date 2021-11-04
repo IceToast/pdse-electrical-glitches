@@ -5,7 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class LogicalORTest {
     private LogicalOR logicalOR;
@@ -13,7 +14,7 @@ public class LogicalORTest {
     private Component logicalInput2;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         logicalOR = new LogicalOR();
         logicalInput1 = mock(LogicalInput.class);
         logicalInput2 = mock(LogicalInput.class);
@@ -80,14 +81,5 @@ public class LogicalORTest {
         logicalOR.calculateState();
 
         assertThrows(MissingInputException.class, () -> logicalOR.calculateState());
-    }
-
-    @Test
-    public void callCalculateOnChildren() {
-        logicalOR.addInput(logicalInput1);
-
-        logicalOR.calculateState();
-
-        verify(logicalInput1).calculateState();
     }
 }
