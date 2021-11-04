@@ -6,6 +6,11 @@ import exceptions.TooManyInputsException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * LogicalNOT represents the physical logic gate NOT.
+ * It receives one input and outputs the opposite boolean state of it.
+ * If attached to multiple inputs an exception will be thrown.
+ */
 public class LogicalNOT extends LogicalComponent {
 
     @Override
@@ -27,7 +32,6 @@ public class LogicalNOT extends LogicalComponent {
 
         if(inputs.size() == 1 || component.length > 1)
             throw new TooManyInputsException("A LogicalNOT can only handle 1 input");
-
 
         Collections.addAll(getInputs(), component);
     }
