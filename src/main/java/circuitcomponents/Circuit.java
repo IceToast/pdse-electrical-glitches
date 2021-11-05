@@ -1,6 +1,7 @@
 package circuitcomponents;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Circuit represents a physical logic circuit.
@@ -18,7 +19,8 @@ public class Circuit {
     }
 
     public int calculateMaxToggleTime() {
-        return 0;
+        if (Objects.isNull(topComponent)) return 0;
+        return topComponent.calculateToggleTime();
     }
 
     public List<LogicalInput> getInputs() {
