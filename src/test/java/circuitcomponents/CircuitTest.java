@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -57,5 +58,23 @@ public class CircuitTest {
 
         when(logicalOR.calculateToggleTime()).thenAnswer(I -> Math.max(1 + inputX2.calculateToggleTime(), 1 + logicalNOT.calculateToggleTime()));
         assertEquals(2, circuit.calculateMaxToggleTime());
+    }
+
+    @Test
+    public void calculateFinalState() {
+        when(inputX1.getChannel()).thenReturn(1);
+        when(inputX2.getChannel()).thenReturn(2);
+        when(inputX1.getState()).thenReturn(false);
+        when(inputX2.getState()).thenReturn(true);
+        when(logicalNOT.getState()).thenReturn(true);
+        logicalNOT.addInput(inputX1);
+        when(logicalNOT.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1}));
+        when(logicalOR.getState()).thenReturn(true);
+        logicalOR.addInput(inputX2, logicalNOT);
+        when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX2, logicalNOT}));
+        circuit = new Circuit(logicalOR);
+        when(logicalOR.calculateToggleTime()).thenAnswer(invocationOnMock -> Math.max(1 + inputX2.calculateToggleTime(), 1 + logicalNOT.calculateToggleTime()));
+        circuit.calculateFinalState();
+        assertTrue(circuit.getState());
     }
 }

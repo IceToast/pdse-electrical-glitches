@@ -30,4 +30,8 @@ public class Circuit {
     public boolean getState() {
         return this.state;
     }
+
+    public void calculateFinalState() {
+        this.state = true;
+    }
 }
