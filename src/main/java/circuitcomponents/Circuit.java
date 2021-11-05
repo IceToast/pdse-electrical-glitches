@@ -32,6 +32,15 @@ public class Circuit {
     }
 
     public void calculateFinalState() {
-        this.state = true;
+        for (int i = 0; i < calculateMaxToggleTime(); i++) {
+            calculateOneIteration();
+        }
+    }
+
+    public void calculateOneIteration() {
+        if (!Objects.isNull(topComponent)) {
+            topComponent.calculateState();
+            this.state = topComponent.getState();
+        }
     }
 }

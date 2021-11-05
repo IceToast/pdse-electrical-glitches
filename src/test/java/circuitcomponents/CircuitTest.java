@@ -38,7 +38,7 @@ public class CircuitTest {
         when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1, inputX2}));
 
         circuit = new Circuit(logicalOR);
-        
+
         when(logicalOR.calculateToggleTime()).thenAnswer(I -> Math.max(1 + inputX1.calculateToggleTime(), 1 + inputX2.calculateToggleTime()));
         assertEquals(1, circuit.calculateMaxToggleTime());
     }
@@ -67,14 +67,27 @@ public class CircuitTest {
         when(inputX1.getState()).thenReturn(false);
         when(inputX2.getState()).thenReturn(true);
         when(logicalNOT.getState()).thenReturn(true);
+
         logicalNOT.addInput(inputX1);
+
         when(logicalNOT.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1}));
         when(logicalOR.getState()).thenReturn(true);
+
         logicalOR.addInput(inputX2, logicalNOT);
+
         when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX2, logicalNOT}));
+
         circuit = new Circuit(logicalOR);
+
         when(logicalOR.calculateToggleTime()).thenAnswer(invocationOnMock -> Math.max(1 + inputX2.calculateToggleTime(), 1 + logicalNOT.calculateToggleTime()));
         circuit.calculateFinalState();
         assertTrue(circuit.getState());
+    }
+    
+    /*
+     * This method needs no specific test because it is already tested in the calculateFinalState() test
+     */
+    @Test
+    public void calculateOneIteration() {
     }
 }
