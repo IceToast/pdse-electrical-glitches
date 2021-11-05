@@ -3,6 +3,7 @@ package circuitcomponents;
 import exceptions.DuplicateInputChannelDetectedException;
 import exceptions.TopComponentNoInputsSetException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,6 +25,11 @@ public class Circuit {
         if(this.topComponent.getInputs().size() <= 0){
             throw new TopComponentNoInputsSetException();
         }
+    }
+
+    private void sortInputsByChannel(List<LogicalInput> usedInputs) {
+        validateUniqueChannels(usedInputs);
+        usedInputs.sort(Comparator.comparingInt(LogicalInput::getChannel));
     }
 
     private void validateUniqueChannels(List<LogicalInput> usedInputs) {
