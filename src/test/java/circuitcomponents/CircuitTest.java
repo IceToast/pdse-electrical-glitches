@@ -1,5 +1,6 @@
 package circuitcomponents;
 
+import exceptions.DuplicateInputChannelDetectedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,6 +61,17 @@ public class CircuitTest {
         assertEquals(2, circuit.calculateMaxToggleTime());
     }
 
+    @Test(expected = DuplicateInputChannelDetectedException.class)
+    public void addNotUniqueInputsToCircuit() {
+        when(inputX1.getChannel()).thenReturn(1);
+        when(inputX2.getChannel()).thenReturn(1);
+
+        logicalOR.addInput(inputX1, inputX2);
+
+        when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1, inputX2}));
+        circuit = new Circuit(logicalOR);
+    }
+
     @Test
     public void calculateFinalState() {
         when(inputX1.getChannel()).thenReturn(1);
@@ -83,7 +95,7 @@ public class CircuitTest {
         circuit.calculateFinalState();
         assertTrue(circuit.getState());
     }
-    
+
     /*
      * This method needs no specific test because it is already tested in the calculateFinalState() test
      */
