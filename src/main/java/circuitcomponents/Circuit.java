@@ -1,9 +1,12 @@
 package circuitcomponents;
 
+import exceptions.DuplicateInputChannelDetectedException;
 import exceptions.TopComponentNoInputsSetException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Circuit represents a physical logic circuit.
@@ -20,6 +23,13 @@ public class Circuit {
         this.topComponent = topComponent;
         if(this.topComponent.getInputs().size() <= 0){
             throw new TopComponentNoInputsSetException();
+        }
+    }
+
+    private void validateUniqueChannels(List<LogicalInput> usedInputs) {
+        Set<Integer> duplicateChannelCheck = usedInputs.stream().map(LogicalInput::getChannel).collect(Collectors.toSet());
+        if(duplicateChannelCheck.size() != usedInputs.size()){
+            throw new DuplicateInputChannelDetectedException("InputChannels are unique, please check your used channels");
         }
     }
 
