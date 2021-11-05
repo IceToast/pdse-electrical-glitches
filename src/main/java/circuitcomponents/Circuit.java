@@ -1,5 +1,7 @@
 package circuitcomponents;
 
+import exceptions.TopComponentNoInputsSetException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +18,9 @@ public class Circuit {
 
     public Circuit(Component topComponent) {
         this.topComponent = topComponent;
+        if(this.topComponent.getInputs().size() <= 0){
+            throw new TopComponentNoInputsSetException();
+        }
     }
 
     public int calculateMaxToggleTime() {
