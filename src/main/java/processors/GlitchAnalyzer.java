@@ -6,6 +6,7 @@ import circuitcomponents.LogicalInput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GlitchAnalyzer {
     private Circuit circuit;
@@ -13,10 +14,11 @@ public class GlitchAnalyzer {
 
     public GlitchAnalyzer(Circuit circuit) {
         this.circuit = circuit;
+        this.inputs = circuit.getInputs();
     }
 
-    public HashMap<Integer, List<Boolean>> analyzeForGlitches() {
-        HashMap<Integer, List<Boolean>> glitches = new HashMap<>();
+    public Map<Integer, List<Boolean>> analyzeForGlitches() {
+        Map<Integer, List<Boolean>> glitches = new HashMap<>();
         for (int i = 0; i < Math.pow(2, inputs.size()); i++) {
             glitches.put(i, analyzeGlitchesPerInputSet(i));
         }
@@ -48,5 +50,12 @@ public class GlitchAnalyzer {
     }
 
     private void setInputState(int i) {
+        for (LogicalInput input : inputs) {
+            input.setState(getBitForIndexOfInteger(i, inputs.indexOf(input)) != 0);
+        }
+    }
+
+    private int getBitForIndexOfInteger(int n, int index) {
+        return (n >> index) & 1;
     }
 }
