@@ -1,7 +1,7 @@
 package circuitcomponents;
 
 import exceptions.DuplicateInputChannelDetectedException;
-import exceptions.TopComponentNoInputsSetException;
+import exceptions.MissingInputException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,13 +20,13 @@ public class Circuit {
     public Circuit(Component topComponent) {
         this.topComponent = topComponent;
         if(this.topComponent.getInputs().size() <= 0){
-            throw new TopComponentNoInputsSetException();
+            throw new MissingInputException("No inputs set for topComponent");
         }
     }
 
     private List<LogicalInput> removeDuplicatesFromList(List<LogicalInput> usedInputs) {
         Set<LogicalInput> duplicateCheck = new HashSet<>(usedInputs);
-        usedInputs = new ArrayList<>();
+        usedInputs.clear();
         usedInputs.addAll(duplicateCheck);
         sortInputsByChannel(usedInputs);
         return usedInputs;
