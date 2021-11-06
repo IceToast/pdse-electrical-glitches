@@ -54,13 +54,9 @@ public class Circuit {
         return uniqueUsedSortedInputs;
     }
 
-    private int getNumberOfUniqueInputs(List<Component> usedInputs) {
-        Set<Component> duplicateCheckSet = new HashSet<>(usedInputs);
-        return duplicateCheckSet.size();
-    }
-
     private void validateUniqueInputs(List<Component> inputs) {
-        if (getNumberOfUniqueInputs(inputs) != inputs.size()) {
+        long numberOfUniqueInputs = inputs.stream().distinct().count();
+        if (numberOfUniqueInputs != inputs.size()) {
             throw new DuplicateInputChannelDetectedException("InputChannels are unique, please check your used channels");
         }
     }
