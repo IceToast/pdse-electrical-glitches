@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -69,7 +68,7 @@ public class CircuitTest {
         logicalOR.addInput(inputX1, inputX2);
 
         when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1, inputX2}));
-        circuit = new Circuit(logicalOR);
+        assertThrows(DuplicateInputChannelDetectedException.class, () -> circuit = new Circuit(logicalOR));
     }
 
     @Test
