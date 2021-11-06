@@ -6,7 +6,7 @@ import exceptions.NoInputsAllowedForInput;
  * LogicalInput represents a physical Input to a Circuit.
  * It does not implement any logic or has any behaviour.
  * Not tested, because of missing testable logic.
- * <p>
+ * It cannot have any inputs
  * The channel is representing the integer of an LogicalInput e.g. the input x2 has channel 2 and so on
  */
 public class LogicalInput extends LogicalComponent {

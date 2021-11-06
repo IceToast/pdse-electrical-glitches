@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * LogicalComponent is a abstract class which represents any logical component
+ * in a circuit.
+ * It has a state, inputs and a delay (physical delay)
+ * It can calculate the toggleTime: toggleTime of inputs + delay
+ * It can have up to 4 inputs
+ */
 public abstract class LogicalComponent implements Component {
     private List<Component> inputs = new ArrayList<>();
     private boolean state = false;
@@ -25,7 +32,7 @@ public abstract class LogicalComponent implements Component {
     public void addInput(Component... component) {
         if (component.length <= 0)
             throw new MissingInputException("No Input to add");
-        if(this.inputs.size() + component.length > 4)
+        if (this.inputs.size() + component.length > 4)
             throw new TooManyInputsException("LogicalComponents only allow up to 4 inputs, cascade the component if you need more.");
         Collections.addAll(this.inputs, component);
     }
@@ -43,8 +50,8 @@ public abstract class LogicalComponent implements Component {
         return maxTreeSize + delay;
     }
 
-    void callCalculateOnChildren(){
-        for(Component input: inputs){
+    void callCalculateOnChildren() {
+        for (Component input : inputs) {
             input.calculateState();
         }
     }

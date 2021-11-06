@@ -4,12 +4,16 @@ import exceptions.MissingInputException;
 
 import java.util.List;
 
-public class LogicalAND extends LogicalComponent{
+/**
+ * LogicalAND represents the logic gate AND.
+ * It takes any number of inputs and only outputs true when all of them are true.
+ */
+public class LogicalAND extends LogicalComponent {
 
     @Override
     public void calculateState() throws MissingInputException {
         List<Component> inputs = getInputs();
-        if(inputs.isEmpty()) throw new MissingInputException();
+        if (inputs.isEmpty()) throw new MissingInputException();
 
         boolean result = true;
         for (Component input : inputs) {
