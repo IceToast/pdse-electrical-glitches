@@ -22,24 +22,16 @@ public class Circuit {
         if(this.topComponent.getInputs().size() <= 0){
             throw new MissingInputException("No inputs set for topComponent");
         }
+        validateUniqueChannels(topComponent.getInputs());
     }
 
-    private List<LogicalInput> removeDuplicatesFromList(List<LogicalInput> usedInputs) {
-        Set<LogicalInput> duplicateCheck = new HashSet<>(usedInputs);
-        usedInputs.clear();
-        usedInputs.addAll(duplicateCheck);
-        sortInputsByChannel(usedInputs);
-        return usedInputs;
+    private int getNumberOfUniqueInputs(List<Component> usedInputs) {
+        Set<Component> duplicateCheckSet = new HashSet<>(usedInputs);
+        return duplicateCheckSet.size();
     }
 
-    private void sortInputsByChannel(List<LogicalInput> usedInputs) {
-        validateUniqueChannels(usedInputs);
-        usedInputs.sort(Comparator.comparingInt(LogicalInput::getChannel));
-    }
-
-    private void validateUniqueChannels(List<LogicalInput> usedInputs) {
-        Set<Integer> duplicateChannelCheck = usedInputs.stream().map(LogicalInput::getChannel).collect(Collectors.toSet());
-        if(duplicateChannelCheck.size() != usedInputs.size()){
+    private void validateUniqueChannels(List<Component> inputs) {
+        if(getNumberOfUniqueInputs(inputs) != inputs.size()){
             throw new DuplicateInputChannelDetectedException("InputChannels are unique, please check your used channels");
         }
     }
