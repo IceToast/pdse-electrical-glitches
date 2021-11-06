@@ -14,14 +14,18 @@ public class CircuitTest {
     private Circuit circuit;
     private LogicalInput inputX1;
     private LogicalInput inputX2;
+    private LogicalInput inputX3;
     private Component logicalOR;
+    private Component logicalAND;
     private LogicalNOT logicalNOT;
 
     @Before
     public void setUp() {
         logicalOR = mock(LogicalOR.class);
+        logicalAND = mock(LogicalAND.class);
         inputX1 = mock(LogicalInput.class);
         inputX2 = mock(LogicalInput.class);
+        inputX3 = mock(LogicalInput.class);
         logicalNOT = mock(LogicalNOT.class);
         when(logicalNOT.calculateToggleTime()).thenReturn(1);
         when(inputX1.calculateToggleTime()).thenReturn(0);
@@ -41,6 +45,19 @@ public class CircuitTest {
 
         when(logicalOR.calculateToggleTime()).thenAnswer(I -> Math.max(1 + inputX1.calculateToggleTime(), 1 + inputX2.calculateToggleTime()));
         assertEquals(1, circuit.calculateMaxToggleTime());
+    }
+
+    @Test
+    public void getInputs() {
+        when(inputX1.getChannel()).thenReturn(1);
+        when(inputX2.getChannel()).thenReturn(2);
+        when(inputX3.getChannel()).thenReturn(3);
+        when(logicalOR.getInputs()).thenReturn(Arrays.asList(inputX1, inputX2));
+        when(logicalAND.getInputs()).thenReturn(Arrays.asList(logicalOR, inputX3));
+
+        circuit = new Circuit(logicalAND);
+
+        assertEquals(circuit.getInputs(), Arrays.asList(inputX1, inputX2, inputX3));
     }
 
     @Test
