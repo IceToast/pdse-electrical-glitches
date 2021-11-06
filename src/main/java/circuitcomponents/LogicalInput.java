@@ -1,6 +1,6 @@
 package circuitcomponents;
 
-import exceptions.NoInputsAllowedForInput;
+import exceptions.NoInputsAllowedForInputException;
 
 /**
  * LogicalInput represents a physical Input to a Circuit.
@@ -22,7 +22,7 @@ public class LogicalInput extends LogicalComponent {
 
     @Override
     public void addInput(Component... component) {
-        throw new NoInputsAllowedForInput();
+        throw new NoInputsAllowedForInputException();
     }
 
     @Override

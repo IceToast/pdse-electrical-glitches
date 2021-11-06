@@ -1,6 +1,6 @@
 package circuitcomponents;
 
-import exceptions.NoInputsAllowedForInput;
+import exceptions.NoInputsAllowedForInputException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,10 +18,10 @@ public class LogicalInputTest {
         logicalInput2 = mock(LogicalInput.class);
     }
 
-    @Test(expected = NoInputsAllowedForInput.class)
+    @Test(expected = NoInputsAllowedForInputException.class)
     public void addInput() {
         logicalInput1.addInput(logicalInput2);
 
-        assertThrows(NoInputsAllowedForInput.class, () -> logicalInput1.addInput(logicalInput2));
+        assertThrows(NoInputsAllowedForInputException.class, () -> logicalInput1.addInput(logicalInput2));
     }
 }
