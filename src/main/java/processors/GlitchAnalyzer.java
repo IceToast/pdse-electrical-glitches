@@ -35,7 +35,16 @@ public class GlitchAnalyzer {
     }
 
     private boolean isGlitching() {
-        return false;
+        int stateChanges = 0;
+        boolean oldState;
+
+        for (int i = 0; i < circuit.calculateMaxToggleTime(); i++) {
+            if (stateChanges >= 2) break;
+            oldState = circuit.getState();
+            circuit.calculateOneIteration();
+            if (oldState != circuit.getState()) stateChanges++;
+        }
+        return stateChanges >= 2;
     }
 
     private void setInputState(int i) {
