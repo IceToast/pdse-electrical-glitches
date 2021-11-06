@@ -19,10 +19,39 @@ public class Circuit {
 
     public Circuit(Component topComponent) {
         this.topComponent = topComponent;
-        if(this.topComponent.getInputs().size() <= 0){
+        if (this.topComponent.getInputs().size() <= 0) {
             throw new MissingInputException("No inputs set for topComponent");
         }
-        validateUniqueChannels(topComponent.getInputs());
+        validateUniqueInputs(topComponent.getInputs());
+        this.inputs = getAllLogicalInputs();
+    }
+
+    private List<LogicalInput> getAllLogicalInputs() {
+        List<Component> components = this.topComponent.getInputs();
+        List<Component> newFoundComponents = new ArrayList<>();
+        List<Component> toRemoveComponents = new ArrayList<>();
+        List<LogicalInput> usedInputs = new ArrayList<>();
+        boolean allFound = false;
+        while (!allFound) {
+            for (Component component : components) {
+                if (component instanceof LogicalInput) {
+                    usedInputs.add((LogicalInput) component);
+                } else {
+                    newFoundComponents.addAll(component.getInputs());
+                }
+                toRemoveComponents.add(component);
+            }
+            newFoundComponents.removeAll(toRemoveComponents);
+            components = newFoundComponents;
+            if (components.size() == 0) {
+                allFound = true;
+            }
+        }
+        List<LogicalInput> uniqueUsedSortedInputs = usedInputs.stream()
+                .distinct()
+                .sorted(Comparator.comparing(LogicalInput::getChannel))
+                .collect(Collectors.toList());
+        return uniqueUsedSortedInputs;
     }
 
     private int getNumberOfUniqueInputs(List<Component> usedInputs) {
@@ -30,8 +59,8 @@ public class Circuit {
         return duplicateCheckSet.size();
     }
 
-    private void validateUniqueChannels(List<Component> inputs) {
-        if(getNumberOfUniqueInputs(inputs) != inputs.size()){
+    private void validateUniqueInputs(List<Component> inputs) {
+        if (getNumberOfUniqueInputs(inputs) != inputs.size()) {
             throw new DuplicateInputChannelDetectedException("InputChannels are unique, please check your used channels");
         }
     }
