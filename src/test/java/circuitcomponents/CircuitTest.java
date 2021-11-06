@@ -62,13 +62,10 @@ public class CircuitTest {
 
     @Test(expected = DuplicateInputChannelDetectedException.class)
     public void addNotUniqueInputsToCircuit() {
-        when(inputX1.getChannel()).thenReturn(1);
-        when(inputX2.getChannel()).thenReturn(1);
+        when(logicalOR.getInputs())
+                .thenReturn(Arrays.asList(new Component[]{inputX1, inputX1}));
 
-        logicalOR.addInput(inputX1, inputX2);
-
-        when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1, inputX2}));
-        assertThrows(DuplicateInputChannelDetectedException.class, () -> circuit = new Circuit(logicalOR));
+        new Circuit(logicalOR);
     }
 
     @Test
