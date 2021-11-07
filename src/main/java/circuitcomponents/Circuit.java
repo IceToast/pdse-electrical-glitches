@@ -42,16 +42,15 @@ public class Circuit {
                 toRemoveComponents.add(component);
             }
             newFoundComponents.removeAll(toRemoveComponents);
-            components = newFoundComponents;
+            components =  new ArrayList<>(newFoundComponents);
             if (components.size() == 0) {
                 allFound = true;
             }
         }
-        List<LogicalInput> uniqueUsedSortedInputs = usedInputs.stream()
+        return usedInputs.stream()
                 .distinct()
                 .sorted(Comparator.comparing(LogicalInput::getChannel))
                 .collect(Collectors.toList());
-        return uniqueUsedSortedInputs;
     }
 
     private void validateUniqueInputs(List<Component> inputs) {
