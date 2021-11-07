@@ -3,6 +3,12 @@ package export;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The ConsoleGlitchLogger is an output implementation of the @GlitchLogger interface.
+ * It is given a Map filled with all possible glitches when changing the specific
+ * input-set in a circuit.
+ * The ConsoleGlitchLogger does not calculate these glitches, it is only for user feedback.
+ */
 public class ConsoleGlichLogger implements GlitchLogger {
     public void log(Map<Integer, List<Boolean>> glitches) {
         boolean glitchFound = false;
