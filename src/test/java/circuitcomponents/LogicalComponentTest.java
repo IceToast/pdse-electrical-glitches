@@ -95,6 +95,24 @@ public class LogicalComponentTest {
         verify(logicalInput3).calculateState();
     }
 
+    @Test
+    public void testCanComponentCalculateTrueDefaultDelay() {
+        assertTrue(logicalComponentDefault1.canComponentCalculate());
+    }
+
+    @Test
+    public void testCanComponentCalculateFalseDelayTwo() {
+        logicalComponentDefault1 = new ImplLogicalComponent(2);
+        assertFalse(logicalComponentDefault1.canComponentCalculate());
+    }
+
+    @Test
+    public void testCanComponentCalculateTrueDelayTwo() {
+        logicalComponentDefault1 = new ImplLogicalComponent(2);
+        assertFalse(logicalComponentDefault1.canComponentCalculate());
+        assertTrue(logicalComponentDefault1.canComponentCalculate());
+    }
+
     class ImplLogicalComponent extends LogicalComponent {
         ImplLogicalComponent() {
             super();

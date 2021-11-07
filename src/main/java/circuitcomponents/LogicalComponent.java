@@ -19,14 +19,32 @@ public abstract class LogicalComponent implements Component {
     private List<Component> inputs = new ArrayList<>();
     private boolean state = false;
     private int delay;
+    private int remainingDelay;
 
     public LogicalComponent() {
         this.delay = 1;
+        resetRemainingDelay();
     }
 
     public LogicalComponent(int delay) {
         if (delay <= 0) throw new NoZeroDelayException();
         this.delay = delay;
+        resetRemainingDelay();
+    }
+
+    private void resetRemainingDelay(){
+        this.remainingDelay = this.delay;
+    }
+
+    private void decrementRemainingDelay(){
+        this.remainingDelay--;
+    }
+
+    public boolean canComponentCalculate(){
+        decrementRemainingDelay();
+        if (this.remainingDelay != 0) return false;
+        resetRemainingDelay();
+        return true;
     }
 
     public void addInput(Component... component) {
