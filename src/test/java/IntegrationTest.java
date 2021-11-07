@@ -1,6 +1,6 @@
 import circuitcomponents.Circuit;
 import examples.ExampleCircuit1;
-import export.ConsoleGlichLogger;
+import export.ConsoleGlitchLogger;
 import export.GlitchLogger;
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class IntegrationTest {
     public void testExampleCircuit1() {
         Circuit circuit = new ExampleCircuit1().create();
         GlitchAnalyzer analyzer = new GlitchAnalyzer(circuit);
-        GlitchLogger logger = new ConsoleGlichLogger();
+        GlitchLogger logger = new ConsoleGlitchLogger();
         logger.log(analyzer.analyzeForGlitches());
         assertTrue(outContent.toString().contains("Glitch bei Starteinstellung 111 und Änderung an x1"));
     }

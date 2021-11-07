@@ -9,7 +9,7 @@ import java.util.Map;
  * input-set in a circuit.
  * The ConsoleGlitchLogger does not calculate these glitches, it is only for user feedback.
  */
-public class ConsoleGlichLogger implements GlitchLogger {
+public class ConsoleGlitchLogger implements GlitchLogger {
     public void log(Map<Integer, List<Boolean>> glitches) {
         boolean glitchFound = false;
         System.out.println("Simulation gestartet.");
