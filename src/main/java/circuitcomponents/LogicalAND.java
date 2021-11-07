@@ -14,12 +14,13 @@ public class LogicalAND extends LogicalComponent {
     public void calculateState() throws MissingInputException {
         List<Component> inputs = getInputs();
         if (inputs.isEmpty()) throw new MissingInputException();
-
-        boolean result = true;
-        for (Component input : inputs) {
-            result = result && input.getState();
+        if (canComponentCalculate()) {
+            boolean result = true;
+            for (Component input : inputs) {
+                result = result && input.getState();
+            }
+            setState(result);
         }
-        setState(result);
         callCalculateOnChildren();
     }
 }

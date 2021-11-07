@@ -18,10 +18,11 @@ public class LogicalNOT extends LogicalComponent {
     public void calculateState() {
         List<Component> inputs = getInputs();
         if (inputs.isEmpty()) throw new MissingInputException();
-
-        Component input = inputs.get(0);
-        boolean result = !input.getState();
-        setState(result);
+        if (canComponentCalculate()) {
+            Component input = inputs.get(0);
+            boolean result = !input.getState();
+            setState(result);
+        }
         callCalculateOnChildren();
     }
 
