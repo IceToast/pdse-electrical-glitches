@@ -2,6 +2,7 @@ package processors;
 
 import circuitcomponents.Circuit;
 import circuitcomponents.LogicalInput;
+import exceptions.MissingCircuitException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class GlitchAnalyzer {
     private List<LogicalInput> inputs;
 
     public GlitchAnalyzer(Circuit circuit) {
+        if (circuit == null) throw new MissingCircuitException("No circuit set for GlitchAnalyzing");
         this.circuit = circuit;
         this.inputs = circuit.getInputs();
     }
