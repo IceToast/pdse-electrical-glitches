@@ -114,5 +114,25 @@ public class CircuitTest {
      */
     @Test
     public void calculateOneIteration() {
+        when(inputX1.getChannel()).thenReturn(1);
+        when(inputX2.getChannel()).thenReturn(2);
+        when(inputX1.getState()).thenReturn(false);
+        when(inputX2.getState()).thenReturn(true);
+        when(logicalNOT.getState()).thenReturn(true);
+
+        logicalNOT.addInput(inputX1);
+
+        when(logicalNOT.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX1}));
+        when(logicalOR.getState()).thenReturn(true);
+
+        logicalOR.addInput(inputX2, logicalNOT);
+
+        when(logicalOR.getInputs()).thenReturn(Arrays.asList(new Component[]{inputX2, logicalNOT}));
+
+        circuit = new Circuit(logicalOR);
+
+        when(logicalOR.calculateToggleTime()).thenAnswer(invocationOnMock -> Math.max(1 + inputX2.calculateToggleTime(), 1 + logicalNOT.calculateToggleTime()));
+        circuit.calculateOneIteration();
+        assertTrue(circuit.getState());
     }
 }
