@@ -6,6 +6,9 @@ import export.ConsoleGlitchLogger;
 import export.GlitchLogger;
 import processors.GlitchAnalyzer;
 
+/**
+ * This is the main class to run a simulation.
+ */
 public class Simulation {
     public static void main(String[] args) {
         Circuit e1 = new ExampleCircuit1().create();

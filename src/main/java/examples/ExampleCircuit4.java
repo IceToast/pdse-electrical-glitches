@@ -4,6 +4,9 @@ import circuitcomponents.Circuit;
 import circuitcomponents.LogicalInput;
 import circuitcomponents.LogicalNOT;
 
+/**
+ * A simple circuit with a topComponent without inputs
+ */
 public class ExampleCircuit4 implements ExampleCircuit{
     @Override
     public Circuit create() {
