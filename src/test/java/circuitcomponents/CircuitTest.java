@@ -109,9 +109,6 @@ public class CircuitTest {
         assertTrue(circuit.getState());
     }
 
-    /*
-     * This method needs no specific test because it is already tested in the calculateFinalState() test
-     */
     @Test
     public void calculateOneIteration() {
         when(inputX1.getChannel()).thenReturn(1);
