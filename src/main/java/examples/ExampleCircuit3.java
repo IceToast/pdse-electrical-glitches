@@ -9,7 +9,7 @@ import circuitcomponents.LogicalOR;
  * Based on the example circuit 1 from the task description but without the NOT Gate
  * This leads to a circuit without glitches
  */
-public class ExampleCircuit3 {
+public class ExampleCircuit3 implements ExampleCircuit{
     public Circuit create(){
         LogicalInput inputX0 = new LogicalInput(0);
         LogicalInput inputX1 = new LogicalInput(1);
