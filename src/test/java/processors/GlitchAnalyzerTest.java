@@ -2,13 +2,13 @@ package processors;
 
 import circuitcomponents.Circuit;
 import circuitcomponents.LogicalInput;
+import exceptions.MissingCircuitException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -107,5 +107,11 @@ public class GlitchAnalyzerTest {
 
         assertEquals(expectedGlitches.size(), glitchAnalyzer.analyzeForGlitches().size());
         assertTrue(glitchAnalyzer.analyzeForGlitches().entrySet().stream().allMatch(e -> e.getValue().equals(expectedGlitches.get(e.getKey()))));
+    }
+
+    @Test(expected = MissingCircuitException.class)
+    public void testCircuitIsNull(){
+        glitchAnalyzer = new GlitchAnalyzer(null);
+        assertThrows(MissingCircuitException.class, () -> glitchAnalyzer.analyzeForGlitches());
     }
 }
