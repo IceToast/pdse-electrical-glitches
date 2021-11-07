@@ -2,6 +2,9 @@ package examples;
 
 import circuitcomponents.*;
 
+/**
+ * The example circuit 1 from the task description
+ */
 public class ExampleCircuit1 implements ExampleCircuit{
     public Circuit create(){
         LogicalInput inputX0 = new LogicalInput(0);
