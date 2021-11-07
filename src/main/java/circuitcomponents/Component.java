@@ -12,6 +12,8 @@ public interface Component {
 
     void calculateState() throws MissingInputException;
 
+    boolean canComponentCalculate();
+
     int calculateToggleTime();
 
     boolean getState();
