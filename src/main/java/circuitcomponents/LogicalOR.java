@@ -10,6 +10,14 @@ import java.util.List;
  */
 public class LogicalOR extends LogicalComponent {
 
+    public LogicalOR() {
+        super();
+    }
+
+    public LogicalOR(int delay) {
+        super(delay);
+    }
+
     @Override
     public void calculateState() throws MissingInputException {
         List<Component> inputs = getInputs();

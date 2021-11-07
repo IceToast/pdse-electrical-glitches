@@ -10,6 +10,15 @@ import java.util.List;
  */
 public class LogicalAND extends LogicalComponent {
 
+
+    public LogicalAND() {
+        super();
+    }
+
+    public LogicalAND(int delay) {
+        super(delay);
+    }
+
     @Override
     public void calculateState() throws MissingInputException {
         List<Component> inputs = getInputs();

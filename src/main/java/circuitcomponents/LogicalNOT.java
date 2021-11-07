@@ -14,6 +14,14 @@ import java.util.List;
  */
 public class LogicalNOT extends LogicalComponent {
 
+    public LogicalNOT() {
+        super();
+    }
+
+    public LogicalNOT(int delay) {
+        super(delay);
+    }
+
     @Override
     public void calculateState() {
         List<Component> inputs = getInputs();
