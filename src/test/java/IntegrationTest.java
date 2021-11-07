@@ -2,6 +2,7 @@ import circuitcomponents.Circuit;
 import examples.ExampleCircuit1;
 import examples.ExampleCircuit2;
 import examples.ExampleCircuit3;
+import exceptions.MissingCircuitException;
 import export.ConsoleGlitchLogger;
 import export.GlitchLogger;
 import org.junit.After;
@@ -12,6 +13,7 @@ import processors.GlitchAnalyzer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -62,5 +64,12 @@ public class IntegrationTest {
         GlitchLogger logger = new ConsoleGlitchLogger();
         logger.log(analyzer.analyzeForGlitches());
         assertTrue(outContent.toString().contains("Es wurden keine Glitches in dieser Schaltung gefunden."));
+    }
+
+    @Test(expected = MissingCircuitException.class)
+    public void testExampleCircuitIsNull(){
+        GlitchAnalyzer analyzer = new GlitchAnalyzer(null);
+        GlitchLogger logger = new ConsoleGlitchLogger();
+        assertThrows(MissingCircuitException.class, () -> logger.log(analyzer.analyzeForGlitches()));
     }
 }
