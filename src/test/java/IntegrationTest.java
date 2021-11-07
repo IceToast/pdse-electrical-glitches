@@ -2,7 +2,9 @@ import circuitcomponents.Circuit;
 import examples.ExampleCircuit1;
 import examples.ExampleCircuit2;
 import examples.ExampleCircuit3;
+import examples.ExampleCircuit4;
 import exceptions.MissingCircuitException;
+import exceptions.MissingInputException;
 import export.ConsoleGlitchLogger;
 import export.GlitchLogger;
 import org.junit.After;
@@ -71,5 +73,13 @@ public class IntegrationTest {
         GlitchAnalyzer analyzer = new GlitchAnalyzer(null);
         GlitchLogger logger = new ConsoleGlitchLogger();
         assertThrows(MissingCircuitException.class, () -> logger.log(analyzer.analyzeForGlitches()));
+    }
+
+    @Test(expected = MissingInputException.class)
+    public void testExampleCircuit4(){
+        Circuit circuit = new ExampleCircuit4().create();
+        GlitchAnalyzer analyzer = new GlitchAnalyzer(circuit);
+        GlitchLogger logger = new ConsoleGlitchLogger();
+        assertThrows(MissingInputException.class, () -> logger.log(analyzer.analyzeForGlitches()));
     }
 }
