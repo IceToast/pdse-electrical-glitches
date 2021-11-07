@@ -11,9 +11,9 @@ import java.util.Map;
 
 /**
  * The GlitchAnalyzer (GA) takes a circuit and if it is a valid circuit it analyzes for glitches.
- * It leads to a glitch if the output state of a circuit changes more than 1 time when only one input is shifted once.
+ * It leads to a glitch if the output state of a circuit changes more than 1 time when only one input is flipped once.
  * To analyze the complete circuit for glitches it takes exactly (2^(number of inputs)) base calculation steps.
- * Within every step we need to shift every input once.
+ * Within every step we need to flip every input once.
  * The maxcalculationtime is the time it takes max to iterate once through the circuit.
  * To simulate a clock for every inputstate you need to iterate the number of maxcalculationtime and check if the state is changed more than once.
  *
